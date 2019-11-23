@@ -43,9 +43,13 @@ def get_page_content(url,page_number,excel_data):
 			f.write(f'抓取 {page_number} 数据失败\n')
 	dict = {} 
 	for div in li_list:
-		div_parent = div.parent()		
-		dict['user_code'] = str(div_parent[0].get('href'))[len('http://yyk.39.net/doctor/'):][:-5]
-		dict['user_url'] = str(div_parent[0].get('href'))
+		div_parent = div.parent()	
+		docotrs_user_url = str(div_parent[0].get('href'))
+		docotrs_user_url_list1 = docotrs_user_url.split('/')
+		docotrs_user_url_list2 = docotrs_user_url_list1[-1].split('.')
+
+		dict['user_code'] = str(docotrs_user_url_list2[0])
+		dict['user_url'] = docotrs_user_url
 		dict['user_url_name'] = str(div_parent[0].get('title'))
 		dict['user_icon'] = str(div_parent[1].get('src'))
 		dict['user_icon_name'] = str(div_parent[1].get('alt'))
